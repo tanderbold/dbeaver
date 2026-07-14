@@ -49,7 +49,6 @@ import org.jkiss.dbeaver.ui.DBeaverIcons;
 import org.jkiss.dbeaver.ui.UIIcon;
 import org.jkiss.dbeaver.ui.UIUtils;
 import org.jkiss.dbeaver.ui.ai.internal.AIUIMessages;
-import org.jkiss.dbeaver.ui.controls.CustomSashForm;
 import org.jkiss.dbeaver.ui.preferences.AbstractPrefPage;
 import org.jkiss.utils.CommonUtils;
 
@@ -147,14 +146,12 @@ public class AIPreferencePageEngines extends AbstractPrefPage implements IWorkbe
         Composite composite = UIUtils.createComposite(parent, 1);
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        CustomSashForm partDivider = UIUtils.createPartDivider(null, composite, SWT.VERTICAL);
-        partDivider.setLayoutData(new GridData(GridData.FILL_BOTH));
-
         Button deleteProfileBtn;
         {
-            Composite profilesComposite = UIUtils.createComposite(partDivider, 2);
-            profilesComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-
+            Composite profilesComposite = UIUtils.createComposite(composite, 2);
+            GridData profileData = new GridData(GridData.FILL_BOTH);
+            profileData.heightHint = UIUtils.getFontHeight(profilesComposite) * 20;
+            profilesComposite.setLayoutData(profileData);
             profilesViewer = new TableViewer(profilesComposite, SWT.BORDER | SWT.FULL_SELECTION | SWT.SINGLE | SWT.V_SCROLL);
             profilesViewer.setContentProvider(ArrayContentProvider.getInstance());
             Table table = profilesViewer.getTable();
@@ -196,8 +193,8 @@ public class AIPreferencePageEngines extends AbstractPrefPage implements IWorkbe
         };
 
         {
-            Composite settingsPanel = UIUtils.createComposite(partDivider, 1);
-            settingsPanel.setLayoutData(new GridData(GridData.FILL_BOTH));
+            Composite settingsPanel = UIUtils.createComposite(composite, 1);
+            settingsPanel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             Composite profileGroup = UIUtils.createTitledComposite(
                 settingsPanel,
                 "Profile",
@@ -235,10 +232,8 @@ public class AIPreferencePageEngines extends AbstractPrefPage implements IWorkbe
             createTestConnectionButton(settingsPanel);
         }
 
-        partDivider.setWeights(200, 800);
-        refresher.run();
         UIUtils.packColumns(profilesViewer.getTable(), true);
-
+        refresher.run();
         return composite;
     }
 
