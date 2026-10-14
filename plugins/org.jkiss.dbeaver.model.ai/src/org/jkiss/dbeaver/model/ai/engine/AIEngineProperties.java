@@ -17,13 +17,39 @@
 package org.jkiss.dbeaver.model.ai.engine;
 
 import org.jkiss.code.NotNull;
+import org.jkiss.code.Nullable;
 import org.jkiss.dbeaver.DBException;
 import org.jkiss.dbeaver.model.ai.AIConfigurationProfile;
 
 public interface AIEngineProperties {
 
+    int DEFAULT_TIMEOUT = 30;
+
+    boolean isGlobal();
+
+    void setGlobal(boolean global);
+
+    @Nullable
     String getModel();
 
+    @Nullable
+    default String getModelDisplayName() {
+        return getModel();
+    }
+
+    default boolean isModelSelectionSupported() {
+        return true;
+    }
+
+    default void setModel(@NotNull String model) throws DBException {
+        throw new DBException("This AI engine does not support model selection");
+    }
+
+    default void selectModel(@NotNull AIModel model) throws DBException {
+        setModel(model.name());
+    }
+
+    @Nullable
     Integer getContextWindowSize();
 
     double getTemperature();
@@ -32,6 +58,12 @@ public interface AIEngineProperties {
     boolean isValidConfiguration();
 
     boolean isLoggingEnabled();
+
+    void setLoggingEnabled(boolean loggingEnabled);
+
+    int getTimeout();
+
+    void setTimeout(int timeout);
 
     void resolveSecrets(@NotNull AIConfigurationProfile profile) throws DBException;
 

@@ -18,6 +18,8 @@
     <extension point="org.jkiss.dbeaver.dataManager">
         <streamManager class="org.jkiss.dbeaver.ui.data.managers.stream.TextStreamValueManager" id="plaintext" label="Text" primaryMime="text/plain"
                        description="Plain text" icon="platform:/plugin/org.jkiss.dbeaver.model/icons/types/text.svg"/>
+        <streamManager class="org.jkiss.dbeaver.ui.data.managers.stream.HtmlStreamValueManager" id="html" label="HTML" primaryMime="text/html"
+                       description="HTML preview" icon="platform:/plugin/org.jkiss.dbeaver.data.transfer/icons/formats/html.svg"/>
 
         <!--
                 <manager class="org.jkiss.dbeaver.ui.data.managers.BooleanValueManager" id="org.jkiss.dbeaver.ui.data.managers.BooleanValueManager">
@@ -1495,6 +1497,7 @@
         </page>
         <page category="org.jkiss.dbeaver.preferences.main.resultset" id="org.jkiss.dbeaver.preferences.main.resultset.presentation" class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageResultSetPresentation" name="%page.org.jkiss.dbeaver.preferences.main.resultset.presentation.name">
             <keywordReference id="org.jkiss.dbeaver.core.keyword.dbeaver"/>
+            <keywordReference id="org.jkiss.dbeaver.ui.editors.data.keyword.pref.presentation"/>
         </page>
         <page category="org.jkiss.dbeaver.preferences.main.resultset.presentation" id="org.jkiss.dbeaver.preferences.main.resultset.grid" class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageResultSetPresentationGrid" name="%page.org.jkiss.dbeaver.preferences.main.resultset.grid.name">
             <keywordReference id="org.jkiss.dbeaver.core.keyword.dbeaver"/>
@@ -1510,7 +1513,13 @@
         </page>
         <page category="org.jkiss.dbeaver.preferences.main.resultset" id="org.jkiss.dbeaver.preferences.main.dataviewer" class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageDataViewer" name="%page.org.jkiss.dbeaver.preferences.main.dataviewer.name">
             <keywordReference id="org.jkiss.dbeaver.core.keyword.dbeaver"/>
+            <keywordReference id="org.jkiss.dbeaver.ui.editors.data.keyword.pref.data.viewer"/>
         </page>
+    </extension>
+
+    <extension point="org.eclipse.ui.keywords">
+        <keyword id="org.jkiss.dbeaver.ui.editors.data.keyword.pref.presentation" label="%keyword.org.jkiss.dbeaver.ui.editors.data.keyword.pref.presentation.label"/>
+        <keyword id="org.jkiss.dbeaver.ui.editors.data.keyword.pref.data.viewer" label="%keyword.org.jkiss.dbeaver.ui.editors.data.keyword.pref.data.viewer.label"/>
     </extension>
 
     <extension point="org.eclipse.ui.propertyPages">
@@ -1544,44 +1553,42 @@
         </page>
     </extension>
 
-    <extension point="org.jkiss.dbeaver.ui.dataSourceConfigurator">
-        <dataSourceConfigurator>
-            <dataSourcePage
+    <extension point="org.jkiss.dbeaver.connectionPageConfigurator">
+            <page
                     id="data-editor.main"
                     class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageResultSetMain"
                     title="%page.org.jkiss.dbeaver.preferences.main.resultset.name"
                     description="%page.org.jkiss.dbeaver.preferences.main.resultset.description"/>
-            <dataSourcePage
+            <page
                     id="data-editor.binary"
                     parent="data-editor.main"
                     class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageResultSetEditors"
                     title="%page.org.jkiss.dbeaver.preferences.main.resultset.editors.name"
                     description="%page.org.jkiss.dbeaver.preferences.main.resultset.editors.description"/>
-            <dataSourcePage
+            <page
                     id="data-editor.formats"
                     parent="data-editor.main"
                     class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageDataFormat"
                     title="%page.org.jkiss.dbeaver.preferences.main.dataformat.name"
                     description="%page.org.jkiss.dbeaver.preferences.main.dataformat.description"/>
-            <dataSourcePage
+            <page
                     id="data-editor.presentation"
                     parent="data-editor.main"
                     class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageResultSetPresentation"
                     title="%page.org.jkiss.dbeaver.preferences.main.resultset.presentation.name"
                     description="%page.org.jkiss.dbeaver.preferences.main.resultset.presentation.description"/>
-            <dataSourcePage
+            <page
                     id="data-editor.presentation.grid"
                     parent="data-editor.presentation"
                     class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageResultSetPresentationGrid"
                     title="%page.org.jkiss.dbeaver.preferences.main.resultset.grid.name"
                     description="%page.org.jkiss.dbeaver.preferences.main.resultset.grid.description"/>
-            <dataSourcePage
+            <page
                     id="data-editor.presentation.text"
                     parent="data-editor.presentation"
                     class="org.jkiss.dbeaver.ui.editors.data.preferences.PrefPageResultSetPresentationPlainText"
                     title="%page.org.jkiss.dbeaver.preferences.main.resultset.plain.text.name"
                     description="%page.org.jkiss.dbeaver.preferences.main.resultset.plain.text.description"/>
-        </dataSourceConfigurator>
     </extension>
 
 </plugin>
